@@ -3,14 +3,19 @@ package com.dmitrysukhov.contactmanager;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.ItemTouchHelper;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     public static final int ADD_CONTACT_REQUEST = 1;
     public static final int EDIT_CONTACT_REQUEST = 2;
 
+
     private ContactViewModel contactViewModel;
-    private int visibility = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,30 +64,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-            new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
-                                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-            return false;
-        }
-        @Override
-        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            contactViewModel.delete(adapter.getContactAt(viewHolder.getAdapterPosition()));
-            Toast.makeText(MainActivity.this, "Contact deleted", Toast.LENGTH_SHORT).show();
-        }
-    }).attachToRecyclerView(recyclerView);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                contactViewModel.delete(adapter.getContactAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(MainActivity.this, "Contact deleted", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(recyclerView);
         adapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
-        @Override
-        public void onItemClick(Contact contact) {
-            Intent intent = new Intent(MainActivity.this, AddEditContactActivity.class);
-            intent.putExtra(AddEditContactActivity.EXTRA_ID, contact.getId());
-            intent.putExtra(AddEditContactActivity.EXTRA_NAME, contact.getName());
-            intent.putExtra(AddEditContactActivity.EXTRA_SURNAME, contact.getSurname());
-            intent.putExtra(AddEditContactActivity.EXTRA_EMAIL, contact.getEmail());
-            startActivityForResult(intent, EDIT_CONTACT_REQUEST);
-        }
-    });
-}
+            @Override
+            public void onItemClick(Contact contact) {
+                Intent intent = new Intent(MainActivity.this, AddEditContactActivity.class);
+                intent.putExtra(AddEditContactActivity.EXTRA_ID, contact.getId());
+                intent.putExtra(AddEditContactActivity.EXTRA_NAME, contact.getName());
+                intent.putExtra(AddEditContactActivity.EXTRA_SURNAME, contact.getSurname());
+                intent.putExtra(AddEditContactActivity.EXTRA_EMAIL, contact.getEmail());
+                startActivityForResult(intent, EDIT_CONTACT_REQUEST);
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -113,16 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    private void deleteContacts() {
-        ImageView buttonDelete = findViewById(R.id.imageButtonDelete);
-        if (visibility == 0) {
-            visibility = 1;
-        } else {
-            visibility = 0;
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -132,13 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.delete:
-                deleteContacts();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.delete) {
+            Toast.makeText(this, "Swipe to delete items", Toast.LENGTH_SHORT).show();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
 }
