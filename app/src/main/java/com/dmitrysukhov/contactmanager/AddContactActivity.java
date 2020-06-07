@@ -1,6 +1,8 @@
 package com.dmitrysukhov.contactmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +29,8 @@ public class AddContactActivity extends AppCompatActivity {
         name = findViewById(R.id.edit_text_name);
         surname = findViewById(R.id.edit_text_surname);
         email = findViewById(R.id.edit_text_email);
+        Toolbar toolbar2 = findViewById(R.id.toolbar2);
+        setSupportActionBar(toolbar2);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
         setTitle("Add Contact");
     }

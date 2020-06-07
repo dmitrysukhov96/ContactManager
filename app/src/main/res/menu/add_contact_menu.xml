@@ -7,6 +7,4 @@
         android:title="@string/save"
         android:icon="@drawable/ic_save"
         app:showAsAction="ifRoom"/>
-
-
 </menu>
