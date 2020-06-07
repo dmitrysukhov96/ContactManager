@@ -1,9 +1,10 @@
 package com.dmitrysukhov.contactmanager;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+
+import android.os.AsyncTask;
 
 import java.util.List;
 

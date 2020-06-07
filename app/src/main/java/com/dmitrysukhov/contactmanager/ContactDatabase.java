@@ -1,12 +1,12 @@
 package com.dmitrysukhov.contactmanager;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import androidx.annotation.NonNull;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteDatabase;
+import android.content.Context;
+import android.os.AsyncTask;
+import androidx.annotation.NonNull;
 
 @Database(entities = {Contact.class}, version = 1)
 public abstract class ContactDatabase extends RoomDatabase {
@@ -44,6 +44,7 @@ public abstract class ContactDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             contactDao.insert(new Contact("Name", "Surname", "example@email.com"));
+            contactDao.insert(new Contact("Name2", "Surname2", "example2@email.com"));
             return null;
         }
     }

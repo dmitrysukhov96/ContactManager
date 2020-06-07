@@ -2,9 +2,9 @@ package com.dmitrysukhov.contactmanager;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.annotation.NonNull;
 
 import java.util.List;
 
@@ -18,9 +18,7 @@ public class ContactViewModel extends AndroidViewModel {
         allContacts = repository.getAllContacts();
     }
 
-    public void insert(Contact contact) {
-        repository.insert(contact);
-    }
+    public void insert(Contact contact) { repository.insert(contact); }
 
     public void update(Contact contact) {
         repository.update(contact);

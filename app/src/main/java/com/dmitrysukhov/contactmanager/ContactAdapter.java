@@ -1,17 +1,31 @@
 package com.dmitrysukhov.contactmanager;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import android.widget.ImageView;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactHolder> {
-    private List<Contact> contacts = new ArrayList<>();
+public class ContactAdapter extends ListAdapter<Contact, ContactAdapter.ContactHolder> {
+    private OnItemClickListener listener;
+    public ContactAdapter() {
+        super(DIFF_CALLBACK);
+    }
+    private static final DiffUtil.ItemCallback<Contact> DIFF_CALLBACK = new DiffUtil.ItemCallback<Contact>() {
+        @Override
+        public boolean areItemsTheSame(Contact oldItem, Contact newItem) {
+            return oldItem.getId() == newItem.getId();
+        }
+        @Override
+        public boolean areContentsTheSame(Contact oldItem, Contact newItem) {
+            return oldItem.getName().equals(newItem.getName()) &&
+                    oldItem.getSurname().equals(newItem.getSurname()) &&
+                    oldItem.getEmail().equals(newItem.getEmail());
+        }
+    };
     @NonNull
     @Override
     public ContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -19,33 +33,37 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
                 .inflate(R.layout.contact_item, parent, false);
         return new ContactHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ContactHolder holder, int position) {
-        Contact currentContact = contacts.get(position);
-        String text1 = currentContact.getName()+" "+currentContact.getSurname();
-        holder.textViewNameSurname.setText(text1);
+        Contact currentContact = getItem(position);
+        holder.textViewNameSurname.setText(currentContact.getName()+" "+currentContact.getSurname());
         holder.textViewEmail.setText(currentContact.getEmail());
     }
-
-    @Override
-    public int getItemCount() {
-        return contacts.size();
+    public Contact getContactAt(int position) {
+        return getItem(position);
     }
-
-    public void setContacts(List<Contact> contacts){
-        this.contacts = contacts;
-        notifyDataSetChanged();
-    }
-
-    class ContactHolder extends RecyclerView.ViewHolder{
+    class ContactHolder extends RecyclerView.ViewHolder {
         private TextView textViewNameSurname;
         private TextView textViewEmail;
-
         public ContactHolder(View itemView) {
             super(itemView);
-            textViewNameSurname=itemView.findViewById(R.id.cardView_name_surname);
-            textViewEmail=itemView.findViewById(R.id.cardView_email);
+            textViewNameSurname = itemView.findViewById(R.id.cardView_name_surname);
+            textViewEmail = itemView.findViewById(R.id.cardView_email);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(getItem(position));
+                    }
+                }
+            });
         }
+    }
+    public interface OnItemClickListener {
+        void onItemClick(Contact contact);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }
