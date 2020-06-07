@@ -114,14 +114,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//    private void youCanDeleteContact() {
-//        ImageView buttonDelete = findViewById(R.id.imageButtonDelete);
-//        if (visibility == 0) {
-//            visibility = 1;
-//        } else {
-//            visibility = 0;
-//        }
-//    }
+    private void deleteContacts() {
+        ImageView buttonDelete = findViewById(R.id.imageButtonDelete);
+        if (visibility == 0) {
+            visibility = 1;
+        } else {
+            visibility = 0;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
-                //youCanDeleteContact();
+                deleteContacts();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
