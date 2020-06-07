@@ -114,20 +114,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void deleteContactVisible() {
-        ImageView buttonDelete = findViewById(R.id.imageButtonDelete);
-        if (visibility == 0) {
-            buttonDelete.setVisibility(View.VISIBLE);
-            visibility = 1;
-        } else {
-            buttonDelete.setVisibility(View.GONE);
-            visibility = 0;
-        }
-    }
+//    private void youCanDeleteContact() {
+//        ImageView buttonDelete = findViewById(R.id.imageButtonDelete);
+//        if (visibility == 0) {
+//            visibility = 1;
+//        } else {
+//            visibility = 0;
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete:
-                deleteContactVisible();
+                //youCanDeleteContact();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
