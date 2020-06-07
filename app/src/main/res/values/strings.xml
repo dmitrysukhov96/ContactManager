@@ -8,4 +8,5 @@
     <string name="profile_photo">Profile photo</string>
     <string name="emailE">email</string>
     <string name="name_surname">Name Surname</string>
+    <string name="profile_image">Profile Image</string>
 </resources>

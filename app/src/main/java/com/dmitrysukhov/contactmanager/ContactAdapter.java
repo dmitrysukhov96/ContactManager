@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,17 @@ import android.widget.TextView;
 
 public class ContactAdapter extends ListAdapter<Contact, ContactAdapter.ContactHolder> {
     private OnItemClickListener listener;
-    public ContactAdapter() {
+
+    ContactAdapter() {
         super(DIFF_CALLBACK);
     }
+
     private static final DiffUtil.ItemCallback<Contact> DIFF_CALLBACK = new DiffUtil.ItemCallback<Contact>() {
         @Override
         public boolean areItemsTheSame(Contact oldItem, Contact newItem) {
             return oldItem.getId() == newItem.getId();
         }
+
         @Override
         public boolean areContentsTheSame(Contact oldItem, Contact newItem) {
             return oldItem.getName().equals(newItem.getName()) &&
@@ -26,6 +30,7 @@ public class ContactAdapter extends ListAdapter<Contact, ContactAdapter.ContactH
                     oldItem.getEmail().equals(newItem.getEmail());
         }
     };
+
     @NonNull
     @Override
     public ContactHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -33,19 +38,24 @@ public class ContactAdapter extends ListAdapter<Contact, ContactAdapter.ContactH
                 .inflate(R.layout.contact_item, parent, false);
         return new ContactHolder(itemView);
     }
+
     @Override
     public void onBindViewHolder(@NonNull ContactHolder holder, int position) {
         Contact currentContact = getItem(position);
-        holder.textViewNameSurname.setText(currentContact.getName()+" "+currentContact.getSurname());
+        String namePlusSurname = currentContact.getName() + " " + currentContact.getSurname();
+        holder.textViewNameSurname.setText(namePlusSurname);
         holder.textViewEmail.setText(currentContact.getEmail());
     }
-    public Contact getContactAt(int position) {
+
+    Contact getContactAt(int position) {
         return getItem(position);
     }
+
     class ContactHolder extends RecyclerView.ViewHolder {
         private TextView textViewNameSurname;
         private TextView textViewEmail;
-        public ContactHolder(View itemView) {
+
+        ContactHolder(View itemView) {
             super(itemView);
             textViewNameSurname = itemView.findViewById(R.id.cardView_name_surname);
             textViewEmail = itemView.findViewById(R.id.cardView_email);
@@ -60,10 +70,12 @@ public class ContactAdapter extends ListAdapter<Contact, ContactAdapter.ContactH
             });
         }
     }
+
     public interface OnItemClickListener {
         void onItemClick(Contact contact);
     }
-    public void setOnItemClickListener(OnItemClickListener listener) {
+
+    void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 }

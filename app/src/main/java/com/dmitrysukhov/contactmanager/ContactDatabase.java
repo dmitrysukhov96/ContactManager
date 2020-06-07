@@ -4,18 +4,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
 import android.content.Context;
 import android.os.AsyncTask;
+
 import androidx.annotation.NonNull;
 
 @Database(entities = {Contact.class}, version = 1)
-public abstract class ContactDatabase extends RoomDatabase {
+abstract class ContactDatabase extends RoomDatabase {
 
     private static ContactDatabase instance;
 
-    public abstract ContactDao contactDao();
+    abstract ContactDao contactDao();
 
-    public static synchronized ContactDatabase getInstance(Context context) {
+    static synchronized ContactDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
                     ContactDatabase.class, "contact_database")
@@ -44,7 +46,8 @@ public abstract class ContactDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             contactDao.insert(new Contact("Name", "Surname", "example@email.com"));
-            contactDao.insert(new Contact("Name2", "Surname2", "example2@email.com"));
+            contactDao.insert(new Contact("Dmitry", "Sukhov", "dmitrysukhov96@gmail.com"));
+            contactDao.insert(new Contact("First", "App", "mvvm@contactmanager.com"));
             return null;
         }
     }

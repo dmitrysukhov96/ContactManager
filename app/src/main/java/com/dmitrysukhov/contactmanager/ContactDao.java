@@ -13,8 +13,10 @@ import java.util.List;
 public interface ContactDao {
     @Insert
     void insert(Contact contact);
+
     @Update
     void update(Contact contact);
+
     @Delete
     void delete(Contact contact);
 
