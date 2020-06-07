@@ -9,25 +9,25 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class ContactViewModel extends AndroidViewModel {
-    private ContactRepository contactRepository;
+    private ContactRepository repository;
     private LiveData<List<Contact>> allContacts;
 
     public ContactViewModel(@NonNull Application application) {
         super(application);
-        contactRepository = new ContactRepository(application);
-        allContacts = contactRepository.getAllContacts();
+        repository = new ContactRepository(application);
+        allContacts = repository.getAllContacts();
     }
 
-    public void insert (Contact contact){
-        contactRepository.insert(contact);
+    public void insert(Contact contact) {
+        repository.insert(contact);
     }
 
-    public void update (Contact contact){
-        contactRepository.update(contact);
+    public void update(Contact contact) {
+        repository.update(contact);
     }
 
-    public void delete (Contact contact){
-        contactRepository.delete(contact);
+    public void delete(Contact contact) {
+        repository.delete(contact);
     }
 
     public LiveData<List<Contact>> getAllContacts() {

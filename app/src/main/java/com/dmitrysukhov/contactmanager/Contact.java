@@ -15,13 +15,10 @@ public class Contact {
 
     private String email;
 
-    private byte[] image;
-
-    public Contact(String name, String surname, String email, byte[] image) {
+    public Contact(String name, String surname, String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.image = image;
     }
 
     public void setId(int id) {
@@ -42,9 +39,5 @@ public class Contact {
 
     public String getEmail() {
         return email;
-    }
-
-    public byte[] getImage() {
-        return image;
     }
 }

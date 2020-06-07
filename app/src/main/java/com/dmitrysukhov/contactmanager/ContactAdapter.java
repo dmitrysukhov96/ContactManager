@@ -3,13 +3,10 @@ package com.dmitrysukhov.contactmanager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
-
+import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,6 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
         String text1 = currentContact.getName()+" "+currentContact.getSurname();
         holder.textViewNameSurname.setText(text1);
         holder.textViewEmail.setText(currentContact.getEmail());
- //       holder.imageViewAvatar.setImageBitmap();
     }
 
     @Override
@@ -45,15 +41,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactH
     class ContactHolder extends RecyclerView.ViewHolder{
         private TextView textViewNameSurname;
         private TextView textViewEmail;
-        private ImageView imageViewAvatar;
-        private ImageView imageViewDeleteButton;
 
-        public ContactHolder(@NonNull View itemView) {
+        public ContactHolder(View itemView) {
             super(itemView);
             textViewNameSurname=itemView.findViewById(R.id.cardView_name_surname);
             textViewEmail=itemView.findViewById(R.id.cardView_email);
-            imageViewAvatar = itemView.findViewById(R.id.contact_cardview_image);
-            imageViewDeleteButton = itemView.findViewById(R.id.imageButtonDelete);
         }
     }
 }
